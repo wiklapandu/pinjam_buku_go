@@ -8,6 +8,14 @@ import (
 
 // HomeHandler is a default handler to serve up
 // a home page.
+type Person struct {
+	Name string
+}
+
 func HomeHandler(c buffalo.Context) error {
-	return c.Render(http.StatusOK, r.HTML("home/index.plush.html"))
+	user := Person{
+		Name: "Hello World",
+	}
+
+	return c.Render(http.StatusOK, r.JSON(user))
 }

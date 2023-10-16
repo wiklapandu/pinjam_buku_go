@@ -1,0 +1,7 @@
+create_table("books_relation") {
+    t.Column("id", "integer", {primary: true})
+    t.Column("book_id", "integer")
+    t.Column("user_id", "integer")
+    t.Column("expired_at", "datetime")
+    t.Column("returned_at", "datetime")
+}
