@@ -6,17 +6,17 @@ import (
 
 	"github.com/gobuffalo/pop/v6"
 	"github.com/gobuffalo/validate/v3"
-	"github.com/gofrs/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // User is used by pop to map your users database table to your go code.
 type User struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	Email     string    `json:"email" db:"email"`
-	Username  string    `json:"username" db:"username"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+	ID        int       `json:"id" form:"id" db:"id"`
+	Email     string    `json:"email" form:"email" db:"email"`
+	Username  string    `json:"username" form:"username" db:"username"`
+	Password  string    `json:"password" form:"password" db:"password"`
+	CreatedAt time.Time `json:"created_at" form:"created_at" db:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" form:"updated_at" db:"updated_at"`
 }
 
 // String is not required by pop and may be deleted
@@ -43,6 +43,18 @@ func (u *User) Validate(tx *pop.Connection) (*validate.Errors, error) {
 // ValidateCreate gets run every time you call "pop.ValidateAndCreate" method.
 // This method is not required and may be deleted.
 func (u *User) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
+	errors := validate.NewErrors()
+	if u.Email == "" {
+		errors.Add("email", "Email is required")
+	}
+
+	if u.Username == "" {
+		errors.Add("username", "Username is required")
+	}
+
+	if errors.HasAny() {
+		return errors, nil
+	}
 	return validate.NewErrors(), nil
 }
 
