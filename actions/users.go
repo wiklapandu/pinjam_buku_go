@@ -8,17 +8,6 @@ import (
 	"github.com/gobuffalo/buffalo"
 )
 
-type Response struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
-}
-
-type ResponseErr struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
-	Errors  string `json:"errors"`
-}
-
 func UserStore(ctx buffalo.Context) error {
 	type response struct {
 		Response

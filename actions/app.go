@@ -64,6 +64,13 @@ func App() *buffalo.App {
 		// Setup and use translations:
 		app.Use(translations())
 
+		authResources := AuthResource{}
+		authGroup := app.Group("/auth")
+		{
+			authGroup.POST("/login", authResources.Login)
+			authGroup.POST("/register", authResources.Register)
+		}
+
 		app.GET("/", HomeHandler)
 		app.GET("/users", UserGet)
 		app.POST("/users", UserStore)

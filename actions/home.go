@@ -11,6 +11,6 @@ import (
 
 func HomeHandler(c buffalo.Context) error {
 	return c.Render(http.StatusOK, r.JSON(map[string]interface{}{
-		"message": "Success full running api",
+		"message": "Welcome to wikla API",
 	}))
 }

@@ -9,6 +9,17 @@ import (
 
 var r *render.Engine
 
+type Response struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
+
+type ResponseErr struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+	Errors  string `json:"errors"`
+}
+
 func init() {
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
